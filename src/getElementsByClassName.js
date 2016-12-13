@@ -1,10 +1,20 @@
-// If life was easy, we could just do things the easy way:
-// var getElementsByClassName = function (className) {
-//   return document.getElementsByClassName(className);
-// };
+var getElementsByClassName = function(className) {
+  var arr= [];
+  var node = document.body;
+    var walkDom = function (node,func) {
+        func(node);                     
+        node = node.firstChild;
+        while(node) {
+            walkDom(node,func);
+            node = node.nextSibling;
+        }
 
-// But instead we're going to implement it from scratch:
-var getElementsByClassName = function(className
-) {
-  // your code here
-};
+    };
+  var addToClass = function(node){
+    if(node.classList != null){
+      if(node.classList.contains(className)) arr.push(node);
+    }
+  }
+  walkDom(node, addToClass);
+  return arr;
+}
